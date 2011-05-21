@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="Windows-1251"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>Applet sample</title>
+</head>
+<body>
+<script type="text/javascript" src="http://www.java.com/js/deployJava.js"></script>
+<script type="text/javascript">
+    var attributes = {
+        width:      1,
+        height:     1,
+        id:     "applet"
+    };
+    var parameters = {jnlp_href:"launch.jnlp"};
+    deployJava.runApplet(attributes, parameters, "1.6");
+
+    function showPid() {
+        var pid = document.getElementById("applet").getPid();
+        alert("PID: " + pid);
+    }
+</script>
+<input type="button" onclick="showPid()" value="Get PID"/>
+</body>
+</html>

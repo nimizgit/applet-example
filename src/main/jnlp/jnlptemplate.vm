@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<jnlp
+        spec="$jnlpspec"
+        codebase=""
+        href="$outputFile">
+    <information>
+        <title>$project.name</title>
+        <vendor>$project.organization.name</vendor>
+        <homepage href="$project.url"/>
+        #if($offlineAllowed)
+            <offline-allowed/>
+        #end
+    </information>
+    <security>
+        <all-permissions/>
+    </security>
+    <update check="always" policy="always"/>
+    <resources>
+        <j2se version="$j2seVersion"/>
+        <jar href="${project.artifactId}-${project.version}.jar" download="eager"/>
+        #foreach( $dependency in $project.dependencies )
+            #if ( !$dependency.classifier )
+                <jar href="${dependency.artifactId}-${dependency.version}.jar" download="lazy"/>
+            #end
+        #end
+    </resources>
+    <resources os="Windows">
+        #foreach( $dependency in $project.dependencies )
+            #if ( $dependency.classifier == 'natives-win' )
+                <nativelib href="${dependency.artifactId}-${dependency.version}-${dependency.classifier}.jar" download="eager"/>
+            #end
+        #end
+    </resources>
+    <resources os="Linux">
+        #foreach( $dependency in $project.dependencies )
+            #if ( $dependency.classifier == 'natives-linux' )
+                <nativelib href="${dependency.artifactId}-${dependency.version}-${dependency.classifier}.jar" download="eager"/>
+            #end
+        #end
+    </resources>
+    <applet-desc
+            name="Habrahabr sample applet"
+            main-class="$mainClass"
+            width="1"
+            height="1">
+    </applet-desc>
+</jnlp>
